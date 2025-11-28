@@ -1,0 +1,19 @@
+.env
+/venv
+/_pycache_
+## all cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyw
+*.pyz
+*.pywz
+*.pyzw
+*.pyzwz
+*.pyzwzw
+*.pyzwzwz
+
+db.sqlite3
+/media
+/staticfiles

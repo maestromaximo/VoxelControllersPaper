@@ -1,0 +1,35 @@
+
+import numpy as np
+
+
+SYSTEM_SIDE_LENGTH = 0.3 # m
+GRID_SIZE = 5
+VOXEL_SIDE_LENGTH = SYSTEM_SIDE_LENGTH / GRID_SIZE # 0.06 m
+
+# air
+DENSITY_AIR = 1.184 # kg/m^3
+SPECIFIC_HEAT_AIR = 1005 # J/(kg*K)
+THERMAL_CONDUCTIVITY_AIR = 0.026 # W/(m*K)
+
+# voxel properties
+VOXEL_VOLUME = VOXEL_SIDE_LENGTH ** 3 # m^3
+VOXEL_MASS = DENSITY_AIR * VOXEL_VOLUME # kg
+VOXEL_HEAT_CAPACITY = VOXEL_MASS * SPECIFIC_HEAT_AIR # J/K (~0.258)
+
+# heater properties
+HEATER_HEAT_CAPACITY = 1.6 # J/K (Approx 2g of ceramic/metal)
+
+
+COND_NEIGHBOR = THERMAL_CONDUCTIVITY_AIR * (VOXEL_SIDE_LENGTH**2) / VOXEL_SIDE_LENGTH # W/K
+# k_ij  (1/s)
+K_NEIGHBOR = COND_NEIGHBOR / VOXEL_HEAT_CAPACITY 
+
+COND_HEATER_AIR = COND_NEIGHBOR * 10.0 ## 10 is an order of magnitude stronger
+KAPPA = COND_HEATER_AIR / VOXEL_HEAT_CAPACITY # ~0.06 s^-1
+
+# environmental loss (k^e)
+K_ENV = K_NEIGHBOR # s^-1
+
+# System Limits
+P_MAX = 25.0 # Watts
+TEMP_AMBIENT = 20.0 # Celsius
